@@ -10,7 +10,10 @@ function addTarefa() {
     alert("Digite algo!");
     return false;
   } else {
-    console.log(inputElement.value);
+      let novaTarefa = inputElement.value;
+      tarefas.push(novaTarefa);
+      inputElement.value = '';
+
   }
 }
 
