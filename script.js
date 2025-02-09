@@ -9,17 +9,30 @@ let tarefas = [];
 function renderTarefas(){
     listElement.innerHTML = "";
     tarefas.map((todo)=>{
-     let liElement = document.createElement("li")
-     let tarefaText = document.createTextNode(todo)
+      let liElement = document.createElement("li");
+      let tarefaText = document.createTextNode(todo);
+      
+      let linkElement = document.createElement("a");
+      linkElement.setAttribute("href", "#");
+      
+      let linkText = document.createTextNode("Excluir");
+      linkElement.appendChild(linkText);
+      linkElement.setAttribute("onclick", "deletarTarefa()")
+
+      let posicao = tarefas.indexOf(todo);
+      linkElement.setAttribute("onclick", `deletarTarefa(${posicao})`);  
 
      liElement.appendChild(tarefaText);
-     listElement.appendChild(liElement);
+     liElement.appendChild(linkElement);
+     listElement.appendChild(liElement);  
+     
+
     })
 }
 
 function addTarefa() {
   if(inputElement.value === '') {
-    alert("Digite algo!");
+    alert("Ops Digite alguma tarefa!");
     return false;
   } else {
       let novaTarefa = inputElement.value;
@@ -31,3 +44,9 @@ function addTarefa() {
 
 buttonElement.onclick = addTarefa;
 
+function deletarTarefa(posicao){
+  tarefas.splice(posicao, 1);
+  renderTarefas();
+
+  // alert("Deletando item: " + posicao)
+}
